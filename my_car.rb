@@ -16,6 +16,11 @@
 class MyCar
   attr_accessor :color
   attr_reader :year
+
+  def self.gas_mileage(gallons, miles)
+    puts "#{miles/gallons} miles per gallon of gas"
+  end
+
   def initialize(year, model, color)
     @year = year
     @model = model
@@ -46,9 +51,13 @@ class MyCar
     self.color = color
     puts "Your new #{color} paint job looks great!"
   end
+
+  def to_s
+    "My car is a #{color}, #{year}, #{@model}!"
+  end
 end
 
-thunderbird = MyCar.new(1988, 'ford thunderbird', 'red')
+# thunderbird = MyCar.new(1988, 'ford thunderbird', 'red')
 
 # thunderbird.speed_up(25)
 # thunderbird.brake(15)
@@ -63,8 +72,13 @@ thunderbird = MyCar.new(1988, 'ford thunderbird', 'red')
 # puts thunderbird.year
 # thunderbird.year = 1996   # Of course I only want a 1988, the color can change, but not the year
 
-puts thunderbird.color        # Red is easier to find
-thunderbird.respray('white')  # But I want white
-puts thunderbird.color
+# puts thunderbird.color        # Red is easier to find
+# thunderbird.respray('white')  # But I want white
+# puts thunderbird.color
+
+# MyCar.gas_mileage(22, 440)
+
+my_car = MyCar.new(1988, 'ford thunderbird', 'white')
+puts my_car
 
 # If I keep coding, someday I will be able to get my dream car!
