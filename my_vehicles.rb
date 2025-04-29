@@ -1,21 +1,14 @@
-# - Create a class called MyCar
-# - When you initialize a new instance or object of the class, allow the user to
-# define some instance variables that tell us the year, model, and color of the car.
-# - Create an instance variable that is set to 0 during instantiation of the object
-# to trck the current speed of the car as well.
-# - Create instance methods that allow the car to speed up, brake, and shut the car off.
+module Towable
+  def can_tow?(pounds)
+    pounds < 5000
+  end
+end
 
-# Add an accessor method to you MyCar class to change and view the color of your car
-# Then add an accessor method that allows you to view, but not modify, the year of your car
-
-# You want to create a nice interface that allows you to accurately describe the action
-# you want you program to perform.
-# Create a method called respray that can be called on an object and
-# will modify the color of the car
-
-class MyCar
+class Vehicle
   attr_accessor :color
   attr_reader :year
+
+  @@number_of_vehicles = 0
 
   def self.gas_mileage(gallons, miles)
     puts "#{miles/gallons} miles per gallon of gas"
@@ -26,6 +19,15 @@ class MyCar
     @model = model
     @color = color
     @current_speed = 0
+    @@number_of_vehicles += 1
+  end
+
+  def self.number_of_vehicles
+    @@number_of_vehicles
+  end
+
+  def age
+    puts "My #{@model} is #{years_old} years old."
   end
 
   def speed_up(number)
@@ -52,8 +54,28 @@ class MyCar
     puts "Your new #{color} paint job looks great!"
   end
 
+  private
+
+  def years_old
+    Time.now.year - self.year.to_i
+  end
+end
+
+class MyCar < Vehicle
+  NUMBER_OF_SEATS = 5
+
   def to_s
     "My car is a #{color}, #{year}, #{@model}!"
+  end
+end
+
+class MyTruck < Vehicle
+  include Towable
+
+  NUMBER_OF_SEATS = 3
+
+  def to_s
+    "My truck is a #{color}, #{year}, #{@model}!"
   end
 end
 
@@ -79,6 +101,27 @@ end
 # MyCar.gas_mileage(22, 440)
 
 my_car = MyCar.new(1988, 'ford thunderbird', 'white')
-puts my_car
+my_truck = MyTruck.new('1988', 'ford F-150', 'Light Blue')
+
+# my_car2 = MyCar.new(1988, 'ford thunderbird', 'white')
+# my_truck2 = MyTruck.new(1988, 'ford F-150', 'Light Blue')
+
+# puts Vehicle.number_of_vehicles
+
+# puts my_truck.can_tow?(9000)
+
+# puts MyCar.ancestors
+# puts "-----------"
+# puts MyTruck.ancestors
+# puts "-----------"
+# puts Vehicle.ancestors
+
+# my_car.speed_up(30)
+# my_car.current_speed
+
+# my_truck.respray('red')
+# puts my_truck.to_s
+
+my_car.age
 
 # If I keep coding, someday I will be able to get my dream car!

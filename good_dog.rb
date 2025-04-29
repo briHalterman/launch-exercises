@@ -1,8 +1,12 @@
+# --- Behavior Modules ---
+
 module Speak
   def speak(sound)
     puts "#{sound}"
   end
 end
+
+# --- GoodDog Class ---
 
 class GoodDog
   DOG_YEARS = 7
@@ -20,7 +24,7 @@ class GoodDog
     self.name = n
     self.height = h
     self.weight = w
-    self.age = a * DOG_YEARS
+    self.age = calculate_age_in_dog_years(a)
   end
 
   def speak
@@ -31,7 +35,7 @@ class GoodDog
     self.name = n
     self.height = h
     self.weight = w
-    self.age = a * DOG_YEARS
+    self.age = calculate_age_in_dog_years(a)
   end
 
   def info
@@ -50,8 +54,22 @@ class GoodDog
     self
   end
 
-  puts self
+  def public_disclosure
+    "#{self.name} in human years is #{human_years}"
+  end
+
+  private
+
+  def calculate_age_in_dog_years(human_years)
+    human_years * DOG_YEARS
+  end
+
+  def human_years
+    age / DOG_YEARS
+  end
 end
+
+# -- HumanBeing Class ---
 
 class HumanBeing
   include Speak
@@ -60,6 +78,8 @@ class HumanBeing
     puts "HumanBeing object initialized."
   end
 end
+
+# --- Demonstration ---
 
 sparky = GoodDog.new("Sparky", "12 inches", "10 lbs", 4)
 puts sparky.info                # => Sparky weighs 10 lbs and is 12 inches tall.
@@ -101,3 +121,8 @@ puts ''
 
 izzy = GoodDog.new('Izzy', '20 inches', '32 lbs', 13)
 p izzy.what_is_self
+puts ''
+
+puts sparky.public_disclosure
+puts izzy.public_disclosure
+puts
